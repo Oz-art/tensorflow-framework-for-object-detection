@@ -20,17 +20,13 @@ The repository provides all the things needed to create an "Indonesian Plate Num
 ## Introduction
 This explaination was purposed to tell you about the way to make your own single/multiple object detection. This tutorial will guide you step-by-step on how to make a single object detection, but you can customize it to become a multiple object detection (just adding the other object dataset and do a simple configuration !!). Please follow this tutorial carefully so you shouldn't found an error in the future.
 
-There are 2 types of tensorflow. First is tensorflow-GPU and the other is tensorflow-CPU. I use tensorflow-GPU because it can reduce the training time. The reason why tensorflow-GPU is faster than tensorflow-CPU can be found [here](https://www.datascience.com/blog/cpu-gpu-machine-learning)
+There are 2 types of tensorflow. First is tensorflow-GPU and the other is tensorflow-CPU. I use tensorflow-GPU because it can reduce the training time. The reason why tensorflow-GPU is faster than tensorflow-CPU can be found [here](https://www.datascience.com/blog/cpu-gpu-machine-learning).
 
 ## Steps
 ### 1. Install TensorFlow-GPU 1.5 (skip this step if TensorFlow-GPU 1.5 is already installed)
-Install TensorFlow-GPU by following the instructions in [this YouTube Video by Mark Jay](https://www.youtube.com/watch?v=RplXYjxgZbw).
+You can install the tensorFlow-GPU by following the instructions in [this YouTube Video by Mark Jay](https://www.youtube.com/watch?v=RplXYjxgZbw) or in [this tensorflow website](https://www.tensorflow.org/install/).
 
-The video is made for TensorFlow-GPU v1.4, but the “pip install --upgrade tensorflow-gpu” command will automatically download version 1.5. Download and install CUDA v9.0 and cuDNN v7.0 (rather than CUDA v8.0 and cuDNN v6.0 as instructed in the video), because they are supported by TensorFlow-GPU v1.5. As future versions of TensorFlow are released, you will likely need to continue updating the CUDA and cuDNN versions to the latest supported version.
-
-Be sure to install Anaconda with Python 3.6 as instructed in the video, as the Anaconda virtual environment will be used for the rest of this tutorial.
-
-Visit [TensorFlow's website](https://www.tensorflow.org/install/install_windows) for further installation details, including how to install it on other operating systems (like Linux). The [object detection repository](https://github.com/tensorflow/models/tree/master/research/object_detection) itself also has [installation instructions](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md).
+Make sure to install Anaconda with Python 3.6 as instructed in the video, because the Anaconda virtual environment will be used for this tutorial.
 
 ### 2. Set up TensorFlow Directory and Anaconda Virtual Environment
 The TensorFlow Object Detection API requires using the specific directory structure provided in its GitHub repository. It also requires several additional Python packages, specific additions to the PATH and PYTHONPATH variables, and a few extra setup commands to get everything set up to run or train an object detection model. 
