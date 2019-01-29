@@ -1,4 +1,4 @@
-# How To Train an Object Detector with Tensorflow Framework on Windows
+# How to Train an Object Detector with Tensorflow Framework on Windows
 
 ## Explanation
 *Last updated: 29/01/2019 with TensorFlow v1.10*
@@ -11,21 +11,16 @@ If you want to watch the oral tutotial you can visit this youtube link created b
 1. [How To Train an Object Detection Classifier Using TensorFlow 1.5 (GPU) on Windows 10](https://www.youtube.com/watch?v=Rgpfk6eYxJA&t=163s)
 2. [Detecting Pikachu on Android Using Tensorflow Object Detection](https://www.youtube.com/watch?v=UnSdl0UzLPM&t=1501s)
 
-The repository provides all the things needed to create an "Indonesian Plate Number" detection. The reason why i choose this object is because i live in Indonesia. If you want to create your own object detecion, you can alaso follow this explanation till the end. 
+The repository provides all the things needed to create an "Indonesian Plate Number" detection. The reason why i choose this object is because i live in Indonesia. If you want to create your own object detecion, you can alaso follow this explanation till the end.
 
 <p align="center">
   <img src="models/research/object_detection/doc/plate-number-detect.jpg">
 </p>
 
 ## Introduction
-The purpose of this tutorial is to explain how to train your own convolutional neural network object detection classifier for multiple objects, starting from scratch. At the end of this tutorial, you will have a program that can identify and draw boxes around specific objects in pictures, videos, or in a webcam feed.
+This explaination was purposed to tell you about the way to make your own single/multiple object detection. This tutorial will guide you step-by-step on how to make a single object detection, but you can customize it to become a multiple object detection (just adding the other object dataset and do a simple configuration !!). Please follow this tutorial carefully so you shouldn't found an error in the future.
 
-There are several good tutorials available for how to use TensorFlow’s Object Detection API to train a classifier for a single object. However, these usually assume you are using a Linux operating system. If you’re like me, you might be a little hesitant to install Linux on your high-powered gaming PC that has the sweet graphics card you’re using to train a classifier. The Object Detection API seems to have been developed on a Linux-based OS. To set up TensorFlow to train a model on Windows, there are several workarounds that need to be used in place of commands that would work fine on Linux. Also, this tutorial provides instructions for training a classifier that can detect multiple objects, not just one.
-
-The tutorial is written for Windows 10, and it will also work for Windows 7 and 8. The general procedure can also be used for Linux operating systems, but file paths and package installation commands will need to change accordingly. 
-
-TensorFlow-GPU allows your PC to use the video card to provide extra processing power while training, so it will be used for this tutorial. In my experience, using TensorFlow-GPU instead of regular TensorFlow reduces training time by a factor of about 8 (3 hours to train instead of 24 hours). Regular TensorFlow can also be used for this tutorial, but it will take longer. If you use regular TensorFlow, you do not need to install CUDA and cuDNN in Step 1. I used TensorFlow-GPU v1.5 while writing this tutorial, but it will likely work for future versions of TensorFlow.
-
+There are 2 types of tensorflow. First is tensorflow-GPU and the other is tensorflow-CPU. I use tensorflow-GPU because it can reduce the training time. The reason why tensorflow-GPU is faster than tensorflow-CPU can be found [here](https://www.datascience.com/blog/cpu-gpu-machine-learning)
 
 ## Steps
 ### 1. Install TensorFlow-GPU 1.5 (skip this step if TensorFlow-GPU 1.5 is already installed)
