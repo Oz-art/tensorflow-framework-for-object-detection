@@ -1,34 +1,20 @@
-# How To Train an Object Detection Classifier for Multiple Objects Using TensorFlow (GPU) on Windows 10
+# How To Train an Object Detector with Tensorflow Framework on Windows
 
-## Brief Summary
-*Last updated: 9/26/2018 with TensorFlow v1.10*
+## Explanation
+*Last updated: 29/01/2019 with TensorFlow v1.10*
 
 *Changes: Added note that the train.py file is now located in the /object_detection/legacy folder and must be moved into the main folder before issuing the training command.*
 
-This repository is a tutorial for how to use TensorFlow's Object Detection API to train an object detection classifier for multiple objects on Windows 10, 8, or 7. (It will also work on Linux-based OSes with some minor changes.) It was originally written using TensorFlow version 1.5, but will also work for newer versions of TensorFlow.
+This GitHub repository is an step-by-step explanation about using Tensorflow framework for creating an object detector. This explanantion was created based on [EdjeElectronics](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10) tutorial, so thanks to him for making a really good tutorial. Really apreciate it. My another inspirarion is [Juan De Dios Santos](https://towardsdatascience.com/detecting-pikachu-on-android-using-tensorflow-object-detection-15464c7a60cd) with his tutorial on making an object detector to detect a pikachu. Really thanks to him too.  
 
-I also made a YouTube video that walks through this tutorial. Any discrepancies between the video and this written tutorial are due to updates required for using newer versions of TensorFlow. 
+If you want to watch the oral tutotial you can visit this youtube link created by EdjeElectronics and Juan De Sios Santos below :
+1. [How To Train an Object Detection Classifier Using TensorFlow 1.5 (GPU) on Windows 10](https://www.youtube.com/watch?v=Rgpfk6eYxJA&t=163s)
+2. [Detecting Pikachu on Android Using Tensorflow Object Detection](https://www.youtube.com/watch?v=UnSdl0UzLPM&t=1501s)
 
-**If there are differences between this written tutorial and the video, follow the written tutorial!**
-
-[![Link to my YouTube video!](https://raw.githubusercontent.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10/master/doc/YouTube%20video.jpg)](https://www.youtube.com/watch?v=Rgpfk6eYxJA)
-
-This readme describes every step required to get going with your own object detection classifier: 
-1. [Installing TensorFlow-GPU](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#1-install-tensorflow-gpu-15-skip-this-step-if-tensorflow-gpu-15-is-already-installed)
-2. [Setting up the Object Detection directory structure and Anaconda Virtual Environment](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#2-set-up-tensorflow-directory-and-anaconda-virtual-environment)
-3. [Gathering and labeling pictures](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#3-gather-and-label-pictures)
-4. [Generating training data](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#4-generate-training-data)
-5. [Creating a label map and configuring training](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#5-create-label-map-and-configure-training)
-6. [Training](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#6-run-the-training)
-7. [Exporting the inference graph](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#7-export-inference-graph)
-8. [Testing and using your newly trained object detection classifier](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#8-use-your-newly-trained-object-detection-classifier)
-
-[Appendix: Common Errors](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#appendix-common-errors)
-
-The repository provides all the files needed to train a "Pinochle Deck" playing card detector that can accurately detect nines, tens, jacks, queens, kings, and aces. The tutorial describes how to replace these files with your own files to train a detection classifier for whatever your heart desires. It also has Python scripts to test your classifier out on an image, video, or webcam feed.
+The repository provides all the things needed to create an "Indonesian Plate Number" detection. The reason why i choose this object is because i live in Indonesia. If you want to create your own object detecion, you can alaso follow this explanation till the end. 
 
 <p align="center">
-  <img src="doc/detector1.jpg">
+  <img src="models/research/object_detection/doc/plate-number-detect.jpg">
 </p>
 
 ## Introduction
