@@ -129,15 +129,15 @@ Once you have stepped all the way through the script, you should see two labeled
 Now that the TensorFlow Object Detection framework is ready, we need to provide the object dataset, it will used to train a new detection classifier.
 
 #### 3a. Gather Pictures
-TensorFlow needs hundreds of images of an object to train a good detection classifier. To train a robust classifier, the training images should have random objects in the image along with the desired objects, and should have a variety of backgrounds and lighting conditions. There should be some images where the desired object is partially obscured, overlapped with something else, or only halfway in the picture. 
+TensorFlow needs minimum a hundreds of images of an object to train a good detection classifier. To train a robust classifier, the training images should have random objects in the image along with the desired objects, and should have a variety of backgrounds and lighting conditions. There should be some images where the desired object is partially obscured, overlapped with something else, or only halfway in the picture. 
 
-For my Pinochle Card Detection classifier, I have six different objects I want to detect (the card ranks nine, ten, jack, queen, king, and ace – I am not trying to detect suit, just rank). I used my iPhone to take about 40 pictures of each card on its own, with various other non-desired objects in the pictures. Then, I took about another 100 pictures with multiple cards in the picture. I know I want to be able to detect the cards when they’re overlapping, so I made sure to have the cards be overlapped in many images.
+This is the sample dataset look like
 
 <p align="center">
-  <img src="doc/collage.jpg">
+  <img src="models/research/object_detection/doc/palat.PNG">
 </p>
 
-You can use your phone to take pictures of the objects or download images of the objects from Google Image Search. I recommend having at least 200 pictures overall. I used 311 pictures to train my card detector.
+You can use a smartphone to take pictures of the objects or download images of the objects from Google Image Search. I recommend having at least 200 pictures overall. I use a hundred of images and 2 minutes video for the dataset.
 
 Make sure the images aren’t too large. They should be less than 200KB each, and their resolution shouldn’t be more than 720x1280. The larger the images are, the longer it will take to train the classifier. You can use the resizer.py script in this repository to reduce the size of the images.
 
