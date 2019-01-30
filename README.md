@@ -26,6 +26,8 @@ There are 2 types of tensorflow. First is tensorflow-GPU and the other is tensor
 ### 1. Install TensorFlow-GPU 1.5 (skip this step if TensorFlow-GPU 1.5 is already installed)
 You can install the tensorFlow-GPU by following the instructions in [this YouTube Video by Mark Jay](https://www.youtube.com/watch?v=RplXYjxgZbw) or in [this tensorflow website](https://www.tensorflow.org/install/).
 
+If you want to use the tensorflow-GPU so you must install CUDA and cuDNN. You can choose and download the version you want [here](https://developer.nvidia.com/cuda-toolkit-archive) for CUDA and [here](https://developer.nvidia.com/rdp/cudnn-archive) for cuDNN. I recommand CUDA v9.0 and cuDNN v7.0, cause this version is compatible with the tensorflow-GPU 1.5.
+
 Make sure to install Anaconda with Python 3.6 as instructed in the video, because the Anaconda virtual environment will be used for this tutorial.
 
 ### 2. Set up TensorFlow Directory and Anaconda Virtual Environment
@@ -34,17 +36,18 @@ The TensorFlow Object Detection API requires using the specific directory struct
 This portion of the tutorial goes over the full set up required. It is fairly meticulous, but follow the instructions closely, because improper setup can cause unwieldy errors down the road.
 
 #### 2a. Download TensorFlow Object Detection API repository from GitHub
-Create a folder directly in C: and name it “tensorflow1”. This working directory will contain the full TensorFlow object detection framework, as well as your training images, training data, trained classifier, configuration files, and everything else needed for the object detection classifier.
+Create folder wherever you want, for example "C:\TF_detect". This folder will contain all the files you needed to create your own object detection. To do that, you can simply clone this repository to your folder or download and extract it to the folder. I have merged the tensorflow framework from this [GitHub commit](https://github.com/tensorflow/models/tree/079d67d9a0b3407e8d074a200780f3835413ef99) and from EdjeElectroincs GitHub, so if you prefered to use the another tensorflow GitHub commit, i can't make sure that it will work. 
 
-Download the full TensorFlow object detection repository located at https://github.com/tensorflow/models by clicking the “Clone or Download” button and downloading the zip file. Open the downloaded zip file and extract the “models-master” folder directly into the C:\tensorflow1 directory you just created. Rename “models-master” to just “models”.
-(Note, this tutorial was done using this [GitHub commit](https://github.com/tensorflow/models/tree/079d67d9a0b3407e8d074a200780f3835413ef99) of the TensorFlow Object Detection API. If portions of this tutorial do not work, it may be necessary to download and use this exact commit rather than the most up-to-date version.)
+After you clone/download this repository, jump to "C:\TF_detect\models\research\object_detection" your folder will look like the picture below : 
+<p align="center">
+  <img src="models/research/object_detection/doc/folder.PNG">
+</p>
+
 
 #### 2b. Download the Faster-RCNN-Inception-V2-COCO model from TensorFlow's model zoo
+This tutorial will use a fine tuning method or also well known as transfer leraning. So, to do that you must download the pre-trained network. 
 TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). Some models (such as the SSD-MobileNet model) have an architecture that allows for faster detection but with less accuracy, while some models (such as the Faster-RCNN model) give slower detection but with more accuracy. I initially started with the SSD-MobileNet-V1 model, but it didn’t do a very good job identifying the cards in my images. I re-trained my detector on the Faster-RCNN-Inception-V2 model, and the detection worked considerably better, but with a noticeably slower speed.
 
-<p align="center">
-  <img src="doc/rcnn_vs_ssd.jpg">
-</p>
 
 You can choose which model to train your objection detection classifier on. If you are planning on using the object detector on a device with low computational power (such as a smart phone or Raspberry Pi), use the SDD-MobileNet model. If you will be running your detector on a decently powered laptop or desktop PC, use one of the RCNN models. 
 
