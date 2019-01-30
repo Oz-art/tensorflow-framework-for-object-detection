@@ -45,8 +45,8 @@ After you clone/download this repository, jump to "C:\tf_detect\models\research\
 
 This repository contains the images, annotation data, .csv files, and TFRecords needed to train an "Indonesian Plate Number" detector. It also contains Python scripts that are used to generate the training data. It has scripts to test out the object detection classifier on images, videos, or a webcam.
 
-#### 2b. Download the Faster-RCNN-Inception-V2-COCO model from TensorFlow's model zoo
-This tutorial will use a fine tuning method or also well known as transfer leraning. So, to do that you must download the pre-trained network. TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). You can download whatever model that you want. I use faster RCNN Inception v2 for my experiment (you can see the experiment result screenshoot above).
+#### 2b. Download the model from TensorFlow's model zoo
+This tutorial will use a fine tuning method or also well known as transfer leraning. So, to do that you must download the pre-trained network. TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). You can download whatever model that you want. I use fasterRCNN Inception v2 for my experiment (you can see the experiment result screenshoot above).
 
 After downloading the model, you should extract the model folder to the C:\tf_detect\models\research\object_detection folder. (Note: The model date and version will likely change in the future, but it should still work with this tutorial.)
 
@@ -106,27 +106,27 @@ This creates a name_pb2.py file from every name.proto file in the \object_detect
 
 Finally, run the following commands from the C:\tensorflow1\models\research directory:
 ```
-(tensorflow1) C:\tensorflow1\models\research> python setup.py build
-(tensorflow1) C:\tensorflow1\models\research> python setup.py install
+(tf_detect) C:\tf_detect\models\research> python setup.py build
+(tf_detect) C:\tf_detect\models\research> python setup.py install
 ```
 
 #### 2g. Test TensorFlow setup to verify it works
-The TensorFlow Object Detection API is now all set up to use pre-trained models for object detection, or to train a new one. You can test it out and verify your installation is working by launching the object_detection_tutorial.ipynb script with Jupyter. From the \object_detection directory, issue this command:
+The TensorFlow Object Detection framework is now all set up to use pre-trained models for object detection, or to train a new one. You can test it out and verify your installation is working by launching the object_detection_tutorial.ipynb script with Jupyter. From the \object_detection directory, type this command:
 ```
-(tensorflow1) C:\tensorflow1\models\research\object_detection> jupyter notebook object_detection_tutorial.ipynb
+(tf_detect) C:\tf_detect\models\research\object_detection> jupyter notebook object_detection_tutorial.ipynb
 ```
 This opens the script in your default web browser and allows you to step through the code one section at a time. You can step through each section by clicking the “Run” button in the upper toolbar. The section is done running when the “In [ * ]” text next to the section populates with a number (e.g. “In [1]”). 
 
 (Note: part of the script downloads the ssd_mobilenet_v1 model from GitHub, which is about 74MB. This means it will take some time to complete the section, so be patient.)
 
-Once you have stepped all the way through the script, you should see two labeled images at the bottom section the page. If you see this, then everything is working properly! If not, the bottom section will report any errors encountered. See the [Appendix](https://github.com/EdjeElectronics/TensorFlow-Object-Detection-API-Tutorial-Train-Multiple-Objects-Windows-10#appendix-common-errors) for a list of errors I encountered while setting this up.
+Once you have stepped all the way through the script, you should see two labeled images at the bottom section the page. If you see this, then everything is working properly! If not, the bottom section will report any errors encountered. See the [Appendix](https://github.com/hue-cupofcoffee/tensorflow-framework-for-object-detection#appendix-common-errors) for a list of errors I encountered while setting this up.
 
 <p align="center">
-  <img src="doc/jupyter_notebook_dogs.jpg">
+  <img src="models/research/object_detection/doc/jupyter_notebook_dogs.jpg">
 </p>
 
 ### 3. Gather and Label Pictures
-Now that the TensorFlow Object Detection API is all set up and ready to go, we need to provide the images it will use to train a new detection classifier.
+Now that the TensorFlow Object Detection framework is ready, we need to provide the object dataset, it will used to train a new detection classifier.
 
 #### 3a. Gather Pictures
 TensorFlow needs hundreds of images of an object to train a good detection classifier. To train a robust classifier, the training images should have random objects in the image along with the desired objects, and should have a variety of backgrounds and lighting conditions. There should be some images where the desired object is partially obscured, overlapped with something else, or only halfway in the picture. 
