@@ -36,37 +36,19 @@ The TensorFlow Object Detection API requires using the specific directory struct
 This portion of the tutorial goes over the full set up required. It is fairly meticulous, but follow the instructions closely, because improper setup can cause unwieldy errors down the road.
 
 #### 2a. Download TensorFlow Object Detection API repository from GitHub
-Create folder wherever you want, for example "C:\TF_detect". This folder will contain all the files you needed to create your own object detection. To do that, you can simply clone this repository to your folder or download and extract it to the folder. I have merged the tensorflow framework from this [GitHub commit](https://github.com/tensorflow/models/tree/079d67d9a0b3407e8d074a200780f3835413ef99) and from EdjeElectroincs GitHub, so if you prefered to use the another tensorflow GitHub commit, i can't make sure that it will work. 
+Create folder wherever you want, for example "C:\tf_detect". This folder will contain all the files you needed to create your own object detection. To do that, you can simply clone this repository to your folder or download and extract it to the folder. I have merged the tensorflow framework from this [GitHub commit](https://github.com/tensorflow/models/tree/079d67d9a0b3407e8d074a200780f3835413ef99) and from EdjeElectroincs GitHub, so if you prefered to use the another tensorflow GitHub commit, i can't make sure that it will work. 
 
-After you clone/download this repository, jump to "C:\TF_detect\models\research\object_detection" your folder will look like the picture below : 
+After you clone/download this repository, jump to "C:\tf_detect\models\research\object_detection" your folder will look like the picture below : 
 <p align="center">
   <img src="models/research/object_detection/doc/folder.PNG">
 </p>
 
+This repository contains the images, annotation data, .csv files, and TFRecords needed to train an "Indonesian Plate Number" detector. It also contains Python scripts that are used to generate the training data. It has scripts to test out the object detection classifier on images, videos, or a webcam.
 
 #### 2b. Download the Faster-RCNN-Inception-V2-COCO model from TensorFlow's model zoo
-This tutorial will use a fine tuning method or also well known as transfer leraning. So, to do that you must download the pre-trained network. 
-TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). Some models (such as the SSD-MobileNet model) have an architecture that allows for faster detection but with less accuracy, while some models (such as the Faster-RCNN model) give slower detection but with more accuracy. I initially started with the SSD-MobileNet-V1 model, but it didn’t do a very good job identifying the cards in my images. I re-trained my detector on the Faster-RCNN-Inception-V2 model, and the detection worked considerably better, but with a noticeably slower speed.
+This tutorial will use a fine tuning method or also well known as transfer leraning. So, to do that you must download the pre-trained network. TensorFlow provides several object detection models (pre-trained classifiers with specific neural network architectures) in its [model zoo](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/detection_model_zoo.md). You can download whatever model that you want. I use faster RCNN Inception v2 for my experiment (you can see the experiment result screenshoot above).
 
-
-You can choose which model to train your objection detection classifier on. If you are planning on using the object detector on a device with low computational power (such as a smart phone or Raspberry Pi), use the SDD-MobileNet model. If you will be running your detector on a decently powered laptop or desktop PC, use one of the RCNN models. 
-
-This tutorial will use the Faster-RCNN-Inception-V2 model. [Download the model here.](http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz) Open the downloaded faster_rcnn_inception_v2_coco_2018_01_28.tar.gz file with a file archiver such as WinZip or 7-Zip and extract the faster_rcnn_inception_v2_coco_2018_01_28 folder to the C:\tensorflow1\models\research\object_detection folder. (Note: The model date and version will likely change in the future, but it should still work with this tutorial.)
-
-#### 2c. Download this tutorial's repository from GitHub
-Download the full repository located on this page (scroll to the top and click Clone or Download) and extract all the contents directly into the C:\tensorflow1\models\research\object_detection directory. (You can overwrite the existing "README.md" file.) This establishes a specific directory structure that will be used for the rest of the tutorial. 
-
-At this point, here is what your \object_detection folder should look like:
-
-<p align="center">
-  <img src="doc/object_detection_directory.jpg">
-</p>
-
-This repository contains the images, annotation data, .csv files, and TFRecords needed to train a "Pinochle Deck" playing card detector. You can use these images and data to practice making your own Pinochle Card Detector. It also contains Python scripts that are used to generate the training data. It has scripts to test out the object detection classifier on images, videos, or a webcam feed. You can ignore the \doc folder and its files; they are just there to hold the images used for this readme.
-
-If you want to practice training your own "Pinochle Deck" card detector, you can leave all the files as they are. You can follow along with this tutorial to see how each of the files were generated, and then run the training. You will still need to generate the TFRecord files (train.record and test.record) as described in Step 4. 
-
-You can also download the frozen inference graph for my trained Pinochle Deck card detector [from this Dropbox link](https://www.dropbox.com/s/va9ob6wcucusse1/inference_graph.zip?dl=0) and extract the contents to \object_detection\inference_graph. This inference graph will work "out of the box". You can test it after all the setup instructions in Step 2a - 2f have been completed by running the Object_detection_image.py (or video or webcam) script.
+After downloading the model, you should extract the model folder to the C:\tf_detect\models\research\object_detection folder. (Note: The model date and version will likely change in the future, but it should still work with this tutorial.)
 
 If you want to train your own object detector, delete the following files (do not delete the folders):
 - All files in \object_detection\images\train and \object_detection\images\test
@@ -74,42 +56,42 @@ If you want to train your own object detector, delete the following files (do no
 - All files in \object_detection\training
 -	All files in \object_detection\inference_graph
 
-Now, you are ready to start from scratch in training your own object detector. This tutorial will assume that all the files listed above were deleted, and will go on to explain how to generate the files for your own training dataset.
+Now, you are ready to start from scratch in training your own object detector. I assume that you have deleted the file listed above, so follow this tutorial carefully.
 
 #### 2d. Set up new Anaconda virtual environment
-Next, we'll work on setting up a virtual environment in Anaconda for tensorflow-gpu. From the Start menu in Windows, search for the Anaconda Prompt utility, right click on it, and click “Run as Administrator”. If Windows asks you if you would like to allow it to make changes to your computer, click Yes.
+From the Start menu in Windows, search "Anaconda Prompt", than Run as Administrator. Click "Yes" if windows ask to allow or deny the utility.
 
-In the command terminal that pops up, create a new virtual environment called “tensorflow1” by issuing the following command:
+When the command terminal pops up, create a new virtual environment whatever that name, for example it called “tf_detect” by typing the following command:
 ```
-C:\> conda create -n tensorflow1 pip python=3.5
+C:\> conda create -n tf_detect pip python=3.5
 ```
-Then, activate the environment by issuing:
+Then, activate the environment you have created by typing:
 ```
-C:\> activate tensorflow1
+C:\> activate tf_detect
 ```
-Install tensorflow-gpu in this environment by issuing:
+Install tensorflow-gpu in this environment by typing:
 ```
-(tensorflow1) C:\> pip install --ignore-installed --upgrade tensorflow-gpu
+(tf_detect) C:\> pip install --ignore-installed --upgrade tensorflow-gpu
 ```
-Install the other necessary packages by issuing the following commands:
+Install the other necessary packages by typing the following commands:
 ```
-(tensorflow1) C:\> conda install -c anaconda protobuf
-(tensorflow1) C:\> pip install pillow
-(tensorflow1) C:\> pip install lxml
-(tensorflow1) C:\> pip install Cython
-(tensorflow1) C:\> pip install jupyter
-(tensorflow1) C:\> pip install matplotlib
-(tensorflow1) C:\> pip install pandas
-(tensorflow1) C:\> pip install opencv-python
+(tf_detect) C:\> conda install -c anaconda protobuf
+(tf_detect) C:\> pip install pillow
+(tf_detect) C:\> pip install lxml
+(tf_detect) C:\> pip install Cython
+(tf_detect) C:\> pip install jupyter
+(tf_detect) C:\> pip install matplotlib
+(tf_detect) C:\> pip install pandas
+(tf_detect) C:\> pip install opencv-python
 ```
 (Note: The ‘pandas’ and ‘opencv-python’ packages are not needed by TensorFlow, but they are used in the Python scripts to generate TFRecords and to work with images, videos, and webcam feeds.)
 
 #### 2e. Configure PYTHONPATH environment variable
 A PYTHONPATH variable must be created that points to the \models, \models\research, and \models\research\slim directories. Do this by issuing the following commands (from any directory):
 ```
-(tensorflow1) C:\> set PYTHONPATH=C:\tensorflow1\models;C:\tensorflow1\models\research;C:\tensorflow1\models\research\slim
+(tf_detect) C:\> set PYTHONPATH=C:\tf_detect\models;C:\tf_detect\models\research;C:\tf_detect\models\research\slim
 ```
-(Note: Every time the "tensorflow1" virtual environment is exited, the PYTHONPATH variable is reset and needs to be set up again.)
+**(Note: Every time the "tf_detect" virtual environment is exited, the PYTHONPATH variable is reset and needs to be set up again.)**
 
 #### 2f. Compile Protobufs and run setup.py
 Next, compile the Protobuf files, which are used by TensorFlow to configure model and training parameters. Unfortunately, the short protoc compilation command posted on TensorFlow’s Object Detection API [installation page](https://github.com/tensorflow/models/blob/master/research/object_detection/g3doc/installation.md) does not work on Windows. Every  .proto file in the \object_detection\protos directory must be called out individually by the command.
