@@ -237,7 +237,7 @@ item {
 }
 
 ```
-The label map ID numbers should be the same as what is defined in the generate_tfrecord.py file. For the basketball, shirt, and shoe detector example mentioned in Step 4, the labelmap.pbtxt file will look like:
+The label map ID numbers should be the same as what is defined in the generate_tfrecord.py file. For the chair, table, and cup detector example mentioned in Step 4, the labelmap.pbtxt file will look like:
 ```
 item {
   id: 1
