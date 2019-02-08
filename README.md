@@ -153,7 +153,7 @@ Here comes the fun part! With all the pictures gathered, it’s time to label th
 Download and install LabelImg, point it to your \images\train directory, and then draw a box around each object in each image. Repeat the process for all the images in the \images\test directory. This will take a while! 
 
 <p align="center">
-  <img src="models/research/object_detection/doc/labels.jpg">
+  <img src="models/research/object_detection/doc/labelimg.PNG">
 </p>
 
 LabelImg saves a .xml file containing the label data for each image. These .xml files will be used to generate TFRecords, which are one of the inputs to the TensorFlow trainer. Once you have labeled and saved each image, there will be one .xml file for each image in the \test and \train directories.
