@@ -198,15 +198,26 @@ With this:
 ```
 # TO-DO replace this with label map
 def class_text_to_int(row_label):
-    if row_label == 'basketball':
+    if row_label == 'chair':
         return 1
-    elif row_label == 'shirt':
+    elif row_label == 'table':
         return 2
-    elif row_label == 'shoe':
+    elif row_label == 'cup':
         return 3
     else:
         return None
 ```
+if you want a multiple object detection, but in this experiment i use this code : 
+
+```
+# TO-DO replace this with label map
+def class_text_to_int(row_label):
+    if row_label == 'PlateNumber':
+        return 1
+    else:
+        return None
+```
+
 Then, generate the TFRecord files by issuing these commands from the \object_detection folder:
 ```
 python generate_tfrecord.py --csv_input=images\train_labels.csv --image_dir=images\train --output_path=train.record
@@ -218,76 +229,52 @@ These generate a train.record and a test.record file in \object_detection. These
 The last thing to do before training is to create a label map and edit the training configuration file.
 
 #### 5a. Label map
-The label map tells the trainer what each object is by defining a mapping of class names to class ID numbers. Use a text editor to create a new file and save it as labelmap.pbtxt in the C:\tensorflow1\models\research\object_detection\training folder. (Make sure the file type is .pbtxt, not .txt !) In the text editor, copy or type in the label map in the format below (the example below is the label map for my Pinochle Deck Card Detector):
+The label map tells the trainer what each object is by defining a mapping of class names to class ID numbers. Use a text editor to create a new file and save it as labelmap.pbtxt in the C:\tf_detect\models\research\object_detection\training folder. (Make sure the file type is .pbtxt, not .txt !) In the text editor, copy or type in the label map in the format below (the example below is the label map for my Plate Number Detector):
 ```
 item {
   id: 1
-  name: 'nine'
+  name: 'PlateNumber'
 }
 
-item {
-  id: 2
-  name: 'ten'
-}
-
-item {
-  id: 3
-  name: 'jack'
-}
-
-item {
-  id: 4
-  name: 'queen'
-}
-
-item {
-  id: 5
-  name: 'king'
-}
-
-item {
-  id: 6
-  name: 'ace'
-}
 ```
 The label map ID numbers should be the same as what is defined in the generate_tfrecord.py file. For the basketball, shirt, and shoe detector example mentioned in Step 4, the labelmap.pbtxt file will look like:
 ```
 item {
   id: 1
-  name: 'basketball'
+  name: 'chair'
 }
 
 item {
   id: 2
-  name: 'shirt'
+  name: 'table'
 }
 
 item {
   id: 3
-  name: 'shoe'
+  name: 'cup'
 }
 ```
 
 #### 5b. Configure training
 Finally, the object detection training pipeline must be configured. It defines which model and what parameters will be used for training. This is the last step before running training!
 
-Navigate to C:\tensorflow1\models\research\object_detection\samples\configs and copy the faster_rcnn_inception_v2_pets.config file into the \object_detection\training directory. Then, open the file with a text editor. There are several changes to make to the .config file, mainly changing the number of classes and examples, and adding the file paths to the training data.
+Navigate to C:\tf_detect\models\research\object_detection\samples\configs and copy the faster_rcnn_inception_v2_pets.config file into the \object_detection\training directory. Then, open the file with a text editor. There are several changes to make to the .config file, mainly changing the number of classes and examples, and adding the file paths to the training data.
 
 Make the following changes to the faster_rcnn_inception_v2_pets.config file. Note: The paths must be entered with single forward slashes (NOT backslashes), or TensorFlow will give a file path error when trying to train the model! Also, the paths must be in double quotation marks ( " ), not single quotation marks ( ' ).
 
 - Line 9. Change num_classes to the number of different objects you want the classifier to detect. For the above basketball, shirt, and shoe detector, it would be num_classes : 3 .
 - Line 110. Change fine_tune_checkpoint to:
-  - fine_tune_checkpoint : "C:/tensorflow1/models/research/object_detection/faster_rcnn_inception_v2_coco_2018_01_28/model.ckpt"
+  - fine_tune_checkpoint : "C:/tf_detect/models/research/object_detection/faster_rcnn_inception_v2_coco_2018_01_28/model.ckpt"
 
 - Lines 126 and 128. In the train_input_reader section, change input_path and label_map_path to:
-  - input_path : "C:/tensorflow1/models/research/object_detection/train.record"
-  - label_map_path: "C:/tensorflow1/models/research/object_detection/training/labelmap.pbtxt"
+  - input_path : "C:/tf_detect/models/research/object_detection/train.record"
+  - label_map_path: "C:/tf_detect/models/research/object_detection/training/labelmap.pbtxt"
 
 - Line 132. Change num_examples to the number of images you have in the \images\test directory.
 
 - Lines 140 and 142. In the eval_input_reader section, change input_path and label_map_path to:
-  - input_path : "C:/tensorflow1/models/research/object_detection/test.record"
-  - label_map_path: "C:/tensorflow1/models/research/object_detection/training/labelmap.pbtxt"
+  - input_path : "C:/tf_detect/models/research/object_detection/test.record"
+  - label_map_path: "C:/tf_detect/models/research/object_detection/training/labelmap.pbtxt"
 
 Save the file after the changes have been made. That’s it! The training job is all configured and ready to go!
 
@@ -307,7 +294,7 @@ If everything has been set up correctly, TensorFlow will initialize the training
 
 Each step of training reports the loss. It will start high and get lower and lower as training progresses. For my training on the Faster-RCNN-Inception-V2 model, it started at about 3.0 and quickly dropped below 0.8. I recommend allowing your model to train until the loss consistently drops below 0.05, which will take about 40,000 steps, or about 2 hours (depending on how powerful your CPU and GPU are). Note: The loss numbers will be different if a different model is used. MobileNet-SSD starts with a loss of about 20, and should be trained until the loss is consistently under 2.
 
-You can view the progress of the training job by using TensorBoard. To do this, open a new instance of Anaconda Prompt, activate the tensorflow1 virtual environment, change to the C:\tensorflow1\models\research\object_detection directory, and issue the following command:
+You can view the progress of the training job by using TensorBoard. To do this, open a new instance of Anaconda Prompt, activate the tensorflow1 virtual environment, change to the C:\tf_detect\models\research\object_detection directory, and issue the following command:
 ```
 (tensorflow1) C:\tensorflow1\models\research\object_detection>tensorboard --logdir=training
 ```
@@ -337,9 +324,6 @@ To run any of the scripts, type “idle” in the Anaconda Command Prompt (with 
 
 If everything is working properly, the object detector will initialize for about 10 seconds and then display a window showing any objects it’s detected in the image!
 
-<p align="center">
-  <img src="doc/detector2.jpg">
-</p>
 
 If you encounter errors, please check out the Appendix: it has a list of errors that I ran in to while setting up my object detection classifier. You can also trying Googling the error. There is usually useful information on Stack Exchange or in TensorFlow’s Issues on GitHub.
 
